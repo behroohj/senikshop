@@ -90,6 +90,7 @@ public class PHeadersAdapter extends RecyclerView.Adapter<PHeadersAdapter.MyView
 
                 Toast.makeText(mContext, holder.title.getText().toString(), Toast.LENGTH_SHORT).show();
 
+
             }
         });
 
