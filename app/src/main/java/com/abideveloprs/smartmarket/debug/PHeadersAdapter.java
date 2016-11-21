@@ -29,7 +29,7 @@ import java.util.List;
 public class PHeadersAdapter extends RecyclerView.Adapter<PHeadersAdapter.MyViewHolder> {
 
     private Context mContext;
-    private List<pheaderORM> albumList;
+    private List<pheaderORM> pheaderList;
 
 
     public class MyViewHolder extends RecyclerView.ViewHolder  {
@@ -45,9 +45,9 @@ public class PHeadersAdapter extends RecyclerView.Adapter<PHeadersAdapter.MyView
     }
 
 
-    public PHeadersAdapter(Context mContext, List<pheaderORM> albumList) {
+    public PHeadersAdapter(Context mContext, List<pheaderORM> pheaderList) {
         this.mContext = mContext;
-        this.albumList = albumList;
+        this.pheaderList = pheaderList;
     }
 
     @Override
@@ -64,7 +64,7 @@ public class PHeadersAdapter extends RecyclerView.Adapter<PHeadersAdapter.MyView
 
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
-        final pheaderORM album = albumList.get(position);
+        final pheaderORM album = pheaderList.get(position);
         holder.title.setText(album.getTitle());
         holder.title.setBackgroundColor(Color.parseColor("#cc"+album.getColor().replaceFirst("#", "")));
         //holder.title.setBackgroundColor(Color.parseColor(album.getColor()));
@@ -134,6 +134,6 @@ public class PHeadersAdapter extends RecyclerView.Adapter<PHeadersAdapter.MyView
 
     @Override
     public int getItemCount() {
-        return albumList.size();
+        return pheaderList.size();
     }
 }
