@@ -21,8 +21,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.abideveloprs.smartmarket.debug.PHeadersAdapter;
 import com.abideveloprs.smartmarket.debug.ProductsAdapter;
 import com.abideveloprs.smartmarket.debug.orm.pheaderORM;
 import com.daimajia.slider.library.Animations.DescriptionAnimation;
@@ -53,8 +56,8 @@ public class MainActivity extends AppCompatActivity
     public static String userpassword;
 
     private RecyclerView recyclerView;
-    private ProductsAdapter adapter;
-    private List<pheaderORM> albumList;
+    private PHeadersAdapter adapter;
+    private List<pheaderORM> headersList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -137,16 +140,7 @@ public class MainActivity extends AppCompatActivity
 
 
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view_header);
-
-
-        albumList= Select.from(pheaderORM.class).list();
-        adapter = new ProductsAdapter(this, albumList);
-
-        RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(this, 2);
-        recyclerView.setLayoutManager(mLayoutManager);
-        recyclerView.addItemDecoration(new MainActivity.GridSpacingItemDecoration(2, dpToPx(10), true));
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setAdapter(adapter);
+        AddDataToHeadersRecycler();
 
     }
 
@@ -292,12 +286,23 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    /**
-     * Converting dp to pixel
-     */
+
     private int dpToPx(int dp) {
         Resources r = getResources();
         return Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, r.getDisplayMetrics()));
+    }
+
+    public void AddDataToHeadersRecycler(){
+
+        headersList= Select.from(pheaderORM.class).list();
+        adapter = new PHeadersAdapter(this, headersList);
+
+        RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(this, 1);
+        recyclerView.setLayoutManager(mLayoutManager);
+        recyclerView.addItemDecoration(new MainActivity.GridSpacingItemDecoration(1, dpToPx(10), true));
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setAdapter(adapter);
+
     }
 
 

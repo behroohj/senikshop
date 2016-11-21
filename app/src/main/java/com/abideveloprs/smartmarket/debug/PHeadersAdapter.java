@@ -3,6 +3,9 @@ package com.abideveloprs.smartmarket.debug;
  * Created by imanbahmani on 10/5/16 AD.
  */
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Color;
+import android.media.Image;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,9 +14,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextClock;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.abideveloprs.smartmarket.debug.activity.Details;
 import com.abideveloprs.smartmarket.debug.orm.pheaderORM;
 
 import java.util.List;
@@ -26,16 +31,16 @@ public class PHeadersAdapter extends RecyclerView.Adapter<PHeadersAdapter.MyView
     private Context mContext;
     private List<pheaderORM> albumList;
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView title, count;
-        public ImageView thumbnail, overflow;
+
+    public class MyViewHolder extends RecyclerView.ViewHolder  {
+        public TextView title;
+        public ImageView thumbnail;
 
         public MyViewHolder(View view) {
             super(view);
             title = (TextView) view.findViewById(R.id.title);
-            count = (TextView) view.findViewById(R.id.count);
             thumbnail = (ImageView) view.findViewById(R.id.thumbnail);
-            overflow = (ImageView) view.findViewById(R.id.overflow);
+
         }
     }
 
@@ -50,25 +55,45 @@ public class PHeadersAdapter extends RecyclerView.Adapter<PHeadersAdapter.MyView
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.headers_card, parent, false);
 
+
+
+
+
         return new MyViewHolder(itemView);
     }
 
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
-        pheaderORM album = albumList.get(position);
+        final pheaderORM album = albumList.get(position);
         holder.title.setText(album.getTitle());
-        holder.count.setText(" تومان");
+        holder.title.setBackgroundColor(Color.parseColor("#cc"+album.getColor().replaceFirst("#", "")));
+        //holder.title.setBackgroundColor(Color.parseColor(album.getColor()));
 
         // loading album cover using Glide library
 
         GlobalClass.ImageCatch(mContext,holder.thumbnail,GlobalClass.imagesaddress+album.getImage());
 
-        holder.overflow.setOnClickListener(new View.OnClickListener() {
+
+
+        holder.thumbnail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showPopupMenu(holder.overflow);
+
+                Toast.makeText(mContext, holder.title.getText().toString(), Toast.LENGTH_SHORT).show();
+
             }
         });
+
+        holder.title.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Toast.makeText(mContext, holder.title.getText().toString(), Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+
     }
 
     /**

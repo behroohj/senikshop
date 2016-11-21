@@ -1,6 +1,7 @@
 package com.abideveloprs.smartmarket.debug;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 
 import com.bumptech.glide.Glide;
 
@@ -21,8 +23,10 @@ import java.lang.reflect.Field;
 public class GlobalClass {
     public static Context context;
     public static String PREFS_NAME = "MyShp"; //shared pref name
-    public static String apiaddress="http://app.behroozhanaei.ir/rest/";
-    public static String imagesaddress="http://app.behroozhanaei.ir/upimg/";
+    public static String apiaddress="http://shirazapp.com/shop/rest/";
+    public static String imagesaddress="http://shirazapp.com/shop/upimg/";
+
+
 
     public static void ImageCatch(Context con,ImageView imageView, String URL)
     {
