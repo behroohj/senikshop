@@ -1,4 +1,4 @@
-package com.shirazapp.senikshop;
+package com.shirazapp.senikshop.parser;
 
 import android.util.Log;
 
@@ -9,8 +9,8 @@ import org.json.JSONObject;
 /**
  * Created by imanbahmani on 9/1/16 AD.
  */
-public class contactUsJsonParser {
-    public void contactUsJsonParserInput(String input)
+public class productJsonParser {
+    public void productJsonParserInput(String input)
     {
         try
         {
@@ -22,8 +22,14 @@ public class contactUsJsonParser {
                     JSONObject obj         = jsonarray.getJSONObject(i);
                     int id                 = obj.getInt("id");
                     String title           = obj.getString("title");
-                    String number          = obj.getString("number");
-                    Boolean trash          = obj.getBoolean("trash");
+                    String content         = obj.getString("content");
+                    String image           = obj.getString("image");
+                    String trash           = obj.getString("trash");
+                    int commission         = obj.getInt("commission");
+                    int stock              = obj.getInt("stock");
+                    int price              = obj.getInt("price");
+                    int percent            = obj.getInt("percent");
+                    int product_head       = obj.getInt("product_head");
                 }
             }
             catch (JSONException e)

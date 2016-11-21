@@ -5,6 +5,7 @@ import android.content.Context;
 import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.support.design.widget.Snackbar;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,13 @@ import java.lang.reflect.Field;
  */
 public class GlobalClass {
     public static Context context;
+    public static String PREFS_NAME = "MyShp"; //shared pref name
+    public static String apiaddress="http://app.behroozhanaei.ir/rest/";
+
+    public static void SnackbarShow(View AndroidRIdContent,String msg){
+        Snackbar.make(AndroidRIdContent, msg, Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show();
+    }
 
     public static Context getContext() {
         return context;

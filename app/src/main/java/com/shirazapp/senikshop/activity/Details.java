@@ -1,4 +1,4 @@
-package com.shirazapp.senikshop;
+package com.shirazapp.senikshop.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,8 +13,12 @@ import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import com.bumptech.glide.Glide;
+
+import com.shirazapp.senikshop.AlbumsAdapter;
+import com.shirazapp.senikshop.GlobalClass;
+import com.shirazapp.senikshop.R;
+import com.shirazapp.senikshop.orm.Album;
+
 import java.util.ArrayList;
 import java.util.List;
 

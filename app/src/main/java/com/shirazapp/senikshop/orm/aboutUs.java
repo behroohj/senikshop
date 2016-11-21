@@ -1,4 +1,4 @@
-package com.shirazapp.senikshop;
+package com.shirazapp.senikshop.orm;
 
 import com.orm.SugarRecord;
 

@@ -1,7 +1,8 @@
-package com.shirazapp.senikshop;
+package com.shirazapp.senikshop.ormquery;
 
 import com.orm.query.Condition;
 import com.orm.query.Select;
+import com.shirazapp.senikshop.orm.gallery;
 
 /**
  * Created by imanbahmani on 9/1/16 AD.

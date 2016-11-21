@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.shirazapp.senikshop.orm.Album;
 
 import java.util.List;
 

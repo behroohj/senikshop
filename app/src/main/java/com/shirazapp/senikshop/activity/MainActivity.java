@@ -1,7 +1,7 @@
-package com.shirazapp.senikshop;
+package com.shirazapp.senikshop.activity;
 
 import android.content.Intent;
-import android.net.Uri;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -13,28 +13,35 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.daimajia.slider.library.Animations.DescriptionAnimation;
-import com.daimajia.slider.library.Indicators.PagerIndicator;
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.daimajia.slider.library.Tricks.ViewPagerEx;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+import com.shirazapp.senikshop.GlobalClass;
+import com.shirazapp.senikshop.R;
+import com.shirazapp.senikshop.orm.pheader;
+import com.shirazapp.senikshop.parser.productHeaderJsonParser;
 
 import java.util.HashMap;
+
+import cz.msebera.android.httpclient.Header;
 
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener , BaseSliderView.OnSliderClickListener, ViewPagerEx.OnPageChangeListener {
 
     private SliderLayout mDemoSlider;
+    SharedPreferences prefs;
+    public static String usermobile;
+    public static String userpassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +50,10 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbars);
         setSupportActionBar(toolbar);
+
+        prefs= getSharedPreferences(GlobalClass.PREFS_NAME, MODE_PRIVATE);
+        usermobile  = prefs.getString("mobile", "");
+        userpassword= prefs.getString("password", "");
 
         GlobalClass.context=this;
         ViewGroup group = (ViewGroup) getWindow().getDecorView().findViewById(android.R.id.content);
@@ -105,7 +116,55 @@ public class MainActivity extends AppCompatActivity
         mDemoSlider.setDuration(4000);
         mDemoSlider.addOnPageChangeListener(this);
 
+
+
+        webServiceProductHead();
+
     }
+
+
+    public  void webServiceProductHead()
+    {
+        AsyncHttpClient client = new AsyncHttpClient();
+        RequestParams params = new RequestParams();
+        params.put("mobile", usermobile);
+        params.put("password", userpassword);
+
+        client.get(GlobalClass.apiaddress+"product_head", params, new AsyncHttpResponseHandler() {
+            @Override
+            public void onStart() {
+                // called before request is started
+            }
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] response) {
+                // called when response HTTP status is "200 OK"
+                String value = new String(response);
+                System.out.println("Product Head Json: "+value);
+                productHeaderJsonParser JsonParse=new productHeaderJsonParser();
+                JsonParse.productHeaderJsonParserInput(value);
+
+
+               // final List<pheader> pheaders =Select.from(pheader.class).where(Condition.prop("idapp").eq(20)).list();
+                int c=(int) pheader.count(pheader.class, null, null);
+                System.out.println("c: "+c);
+
+
+            }
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] errorResponse, Throwable e) {
+                // called when response HTTP status is "4XX" (eg. 401, 403, 404)
+            }
+            @Override
+            public void onRetry(int retryNo) {
+                // called when request is retried
+            }
+        });
+    }
+
+
+
+
+
 
     @Override
     public void onBackPressed() {

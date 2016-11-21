@@ -1,6 +1,10 @@
-package com.shirazapp.senikshop;
+package com.shirazapp.senikshop.parser;
 
 import android.util.Log;
+
+import com.shirazapp.senikshop.ormquery.aboutUsQuery;
+import com.shirazapp.senikshop.orm.aboutUs;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;

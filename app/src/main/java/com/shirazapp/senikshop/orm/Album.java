@@ -1,4 +1,4 @@
-package com.shirazapp.senikshop;
+package com.shirazapp.senikshop.orm;
 
 /**
  * Created by imanbahmani on 10/5/16 AD.

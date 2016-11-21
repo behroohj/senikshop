@@ -1,4 +1,4 @@
-package com.shirazapp.senikshop;
+package com.shirazapp.senikshop.parser;
 
 /**
  * Created by imanbahmani on 10/5/16 AD.
@@ -11,6 +11,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.daimajia.slider.library.SliderLayout;
+import com.shirazapp.senikshop.R;
 
 /**
  * Created by daimajia on 14-5-29.
