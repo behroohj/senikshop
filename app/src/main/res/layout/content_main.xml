@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.shirazapp.senikshop.activity.MainActivity"
+    tools:context=".activity.MainActivity"
     tools:showIn="@layout/app_bar_main"
     android:orientation="vertical">
 
@@ -76,85 +76,7 @@
 
                 </TableRow>
 
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <ImageView
-                        android:adjustViewBounds="true"
-                        android:layout_margin="5dp"
-                        android:src="@drawable/p"
-                        android:layout_width="0dp"
-                        android:layout_weight=".5"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/imageView3" />
-
-                    <ImageView
-                        android:adjustViewBounds="true"
-                        android:layout_margin="5dp"
-                        android:src="@drawable/pi"
-                        android:layout_width="0dp"
-                        android:layout_weight=".5"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/imageView4" />
-                </TableRow>
-
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <ImageView
-                        android:layout_margin="5dp"
-                        android:src="@drawable/pii"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="wrap_content"
-                        android:adjustViewBounds="true"
-                        android:id="@+id/imageView5" />
-
-                </TableRow>
-
-
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <ImageView
-                        android:adjustViewBounds="true"
-                        android:layout_margin="5dp"
-                        android:src="@drawable/piii"
-                        android:layout_width="0dp"
-                        android:layout_weight=".5"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/imageView6" />
-
-                    <ImageView
-                        android:adjustViewBounds="true"
-                        android:layout_margin="5dp"
-                        android:src="@drawable/piiii"
-                        android:layout_width="0dp"
-                        android:layout_weight=".5"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/imageView7" />
-                </TableRow>
-
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <ImageView
-                        android:adjustViewBounds="true"
-                        android:layout_margin="5dp"
-                        android:src="@drawable/piiiii"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/imageView8" />
-
-                </TableRow>
+                <include layout="@layout/content_headers" />
 
 
             </LinearLayout>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.shirazapp.senikshop">
+    package="com.abideveloprs.smartmarket.debug">
 
     <!-- To auto-complete the email text field in the login form with the user's emails -->
     <uses-permission android:name="android.permission.INTERNET" />
@@ -30,13 +30,13 @@
             android:value="smartShop.db" />
         <meta-data
             android:name="VERSION"
-            android:value="2" />
+            android:value="3" />
         <meta-data
             android:name="QUERY_LOG"
             android:value="true" />
         <meta-data
             android:name="DOMAIN_PACKAGE_NAME"
-            android:value="com.shirazapp.senikshop" />
+            android:value="com.abideveloprs.smartmarket.debug" />
 
         <activity android:name=".activity.Details" />
         <activity
