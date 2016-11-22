@@ -21,13 +21,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.abideveloprs.smartmarket.debug.PHeadersAdapter;
-import com.abideveloprs.smartmarket.debug.ProductsAdapter;
 import com.abideveloprs.smartmarket.debug.orm.pheaderORM;
+import com.abideveloprs.smartmarket.debug.orm.productORM;
+import com.abideveloprs.smartmarket.debug.parser.productJsonParser;
 import com.daimajia.slider.library.Animations.DescriptionAnimation;
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
@@ -135,6 +134,7 @@ public class MainActivity extends AppCompatActivity
 
 
         webServiceProductHead();
+        webServiceProduct();
 
 
 
@@ -167,8 +167,8 @@ public class MainActivity extends AppCompatActivity
 
 
                // final List<pheaderORM> pheaders =Select.from(pheaderORM.class).where(Condition.prop("idapp").eq(20)).list();
-                int c=(int) pheaderORM.count(pheaderORM.class, null, null);
-                System.out.println("c: "+c);
+//                int c=(int) pheaderORM.count(pheaderORM.class, null, null);
+//                System.out.println("c: "+c);
 
 
             }
@@ -183,6 +183,44 @@ public class MainActivity extends AppCompatActivity
         });
     }
 
+
+    public  void webServiceProduct()
+    {
+        AsyncHttpClient client = new AsyncHttpClient();
+        RequestParams params = new RequestParams();
+        params.put("mobile", usermobile);
+        params.put("password", userpassword);
+
+        client.get(GlobalClass.apiaddress+"product", params, new AsyncHttpResponseHandler() {
+            @Override
+            public void onStart() {
+                // called before request is started
+            }
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] response) {
+                // called when response HTTP status is "200 OK"
+                String value = new String(response);
+                System.out.println("Product Json: "+value);
+                productJsonParser productparser=new productJsonParser();
+                productparser.productJsonParserInput(value);
+
+
+                // final List<pheaderORM> pheaders =Select.from(pheaderORM.class).where(Condition.prop("idapp").eq(20)).list();
+                int c=(int) productORM.count(productORM.class, null, null);
+                System.out.println("c2: "+c);
+
+
+            }
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] errorResponse, Throwable e) {
+                // called when response HTTP status is "4XX" (eg. 401, 403, 404)
+            }
+            @Override
+            public void onRetry(int retryNo) {
+                // called when request is retried
+            }
+        });
+    }
 
 
 
@@ -234,7 +272,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onSliderClick(BaseSliderView slider) {
         Toast.makeText(this,slider.getBundle().get("extra") + "", Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(GlobalClass.context,Details.class);
+        Intent intent = new Intent(GlobalClass.context,ProductsActivity.class);
         startActivity(intent);
     }
 

@@ -1,5 +1,6 @@
 package com.abideveloprs.smartmarket.debug.activity;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.content.res.Resources;
@@ -18,15 +19,19 @@ import com.abideveloprs.smartmarket.debug.ProductsAdapter;
 import com.abideveloprs.smartmarket.debug.GlobalClass;
 import com.abideveloprs.smartmarket.debug.R;
 import com.abideveloprs.smartmarket.debug.orm.pheaderORM;
+import com.abideveloprs.smartmarket.debug.orm.productORM;
+import com.orm.query.Condition;
 import com.orm.query.Select;
 
 import java.util.List;
 
-public class Details extends AppCompatActivity {
+public class ProductsActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private ProductsAdapter adapter;
-    private List<pheaderORM> albumList;
+    private List<productORM> albumList;
+    private String headerTitle,headerColor,headerImage;
+    private int headerId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         GlobalClass.overrideFont(getApplicationContext(), "SERIF", "Yekan.ttf");
@@ -41,10 +46,21 @@ public class Details extends AppCompatActivity {
         ViewGroup group = (ViewGroup) getWindow().getDecorView().findViewById(android.R.id.content);
         GlobalClass.setAllTextView(group);
 
+        Intent intent=getIntent();
+        headerId=     intent.getIntExtra("id",0);
+        headerTitle=  intent.getStringExtra("title");
+        headerColor=  intent.getStringExtra("color");
+        headerImage=  intent.getStringExtra("image");
+
+        System.out.println("head id "+headerId);
+
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
 
 
-        albumList= Select.from(pheaderORM.class).list();
+        albumList= Select.from(productORM.class)
+                .where(Condition.prop("phead").eq(headerId))
+                .list();
+
         adapter = new ProductsAdapter(this, albumList);
 
         RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(this, 2);

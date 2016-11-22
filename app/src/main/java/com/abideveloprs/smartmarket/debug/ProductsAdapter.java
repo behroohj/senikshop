@@ -14,7 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.abideveloprs.smartmarket.debug.orm.pheaderORM;
+import com.abideveloprs.smartmarket.debug.orm.productORM;
 
 import java.util.List;
 
@@ -24,7 +24,7 @@ import java.util.List;
 public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.MyViewHolder> {
 
     private Context mContext;
-    private List<pheaderORM> albumList;
+    private List<productORM> albumList;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView title, count;
@@ -40,7 +40,7 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.MyView
     }
 
 
-    public ProductsAdapter(Context mContext, List<pheaderORM> albumList) {
+    public ProductsAdapter(Context mContext, List<productORM> albumList) {
         this.mContext = mContext;
         this.albumList = albumList;
     }
@@ -55,7 +55,7 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.MyView
 
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
-        pheaderORM album = albumList.get(position);
+        productORM album = albumList.get(position);
         holder.title.setText(album.getTitle());
         holder.count.setText(" تومان");
 

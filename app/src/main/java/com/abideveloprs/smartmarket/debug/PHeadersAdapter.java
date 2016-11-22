@@ -5,20 +5,17 @@ package com.abideveloprs.smartmarket.debug;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.media.Image;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextClock;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.abideveloprs.smartmarket.debug.activity.Details;
+import com.abideveloprs.smartmarket.debug.activity.ProductsActivity;
 import com.abideveloprs.smartmarket.debug.orm.pheaderORM;
 
 import java.util.List;
@@ -64,14 +61,20 @@ public class PHeadersAdapter extends RecyclerView.Adapter<PHeadersAdapter.MyView
 
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
-        final pheaderORM album = pheaderList.get(position);
-        holder.title.setText(album.getTitle());
-        holder.title.setBackgroundColor(Color.parseColor("#cc"+album.getColor().replaceFirst("#", "")));
-        //holder.title.setBackgroundColor(Color.parseColor(album.getColor()));
+        final pheaderORM phORM = pheaderList.get(position);
+        holder.title.setText(phORM.getTitle());
+        holder.title.setBackgroundColor(Color.parseColor("#cc"+phORM.getColor().replaceFirst("#", "")));
+        //holder.title.setBackgroundColor(Color.parseColor(phORM.getColor()));
 
-        // loading album cover using Glide library
+        // loading phORM cover using Glide library
 
-        GlobalClass.ImageCatch(mContext,holder.thumbnail,GlobalClass.imagesaddress+album.getImage());
+        GlobalClass.ImageCatch(mContext,holder.thumbnail,GlobalClass.imagesaddress+phORM.getImage());
+
+        final Intent intent=new Intent(mContext,ProductsActivity.class);
+        intent.putExtra("id",phORM.getidapp());
+        intent.putExtra("title",phORM.getTitle());
+        intent.putExtra("color",phORM.getColor());
+        intent.putExtra("image",phORM.getImage());
 
 
 
@@ -79,7 +82,7 @@ public class PHeadersAdapter extends RecyclerView.Adapter<PHeadersAdapter.MyView
             @Override
             public void onClick(View view) {
 
-                Toast.makeText(mContext, holder.title.getText().toString(), Toast.LENGTH_SHORT).show();
+                mContext.startActivity(intent);
 
             }
         });
@@ -88,7 +91,7 @@ public class PHeadersAdapter extends RecyclerView.Adapter<PHeadersAdapter.MyView
             @Override
             public void onClick(View view) {
 
-                Toast.makeText(mContext, holder.title.getText().toString(), Toast.LENGTH_SHORT).show();
+                mContext.startActivity(intent);
 
 
             }
@@ -100,14 +103,7 @@ public class PHeadersAdapter extends RecyclerView.Adapter<PHeadersAdapter.MyView
     /**
      * Showing popup menu when tapping on 3 dots
      */
-    private void showPopupMenu(View view) {
-        // inflate menu
-        PopupMenu popup = new PopupMenu(mContext, view);
-        MenuInflater inflater = popup.getMenuInflater();
-        inflater.inflate(R.menu.menu_album, popup.getMenu());
-        popup.setOnMenuItemClickListener(new MyMenuItemClickListener());
-        popup.show();
-    }
+
 
     /**
      * Click listener for popup menu items

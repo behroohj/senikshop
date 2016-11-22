@@ -1,41 +1,46 @@
 package com.abideveloprs.smartmarket.debug.orm;
 
+import com.google.common.primitives.Booleans;
+import com.orm.SugarRecord;
+
 /**
  * Created by imanbahmani on 9/1/16 AD.
  * CREATE TABLE "productORM" (
- `id_master`	INTEGER PRIMARY KEY AUTOINCREMENT,
- `id`	INTEGER,
+ `id_master`	int PRIMARY KEY AUTOINCREMENT,
+ `id`	int,
  `title`	TEXT,
  `content`	TEXT,
  `image`	TEXT,
- `commission`	INTEGER,
- `stock`	INTEGER,
- `price`	INTEGER,
- `percent`	INTEGER,
- `product_head`	INTEGER,
- `shop`	INTEGER,
- `number`	INTEGER,
+ `commission`	int,
+ `stock`	int,
+ `price`	int,
+ `percent`	int,
+ `phead`	int,
+ `shop`	int,
+ `number`	int,
  `trash`	TEXT
  )
  */
-public class productORM {
-    private Integer idMaster;
+public class productORM extends SugarRecord{
+    private int     idapp;
     private String  title;
     private String  content;
     private String  image;
-    private Integer commission;
-    private Integer stock;
-    private Integer price;
-    private Integer percent;
-    private Integer product_head;
-    private Integer shop;
-    private Integer number;
-    private Boolean trash;
+    private int     commission;
+    private int     stock;
+    private int     price;
+    private int     percent;
+    private int     phead;
+    private String  trash;
+    private String  isnew;
+    private String  slider;
+    private String  sliderupdate;
+
 
     public productORM() {
     }
-    public productORM(Integer idMaster, String title, String content, String image, Integer commission, Integer stock, Integer price, Integer percent, Integer product_head, Integer shop, Integer number, Boolean trash) {
-        this.idMaster=idMaster;
+    public productORM(int idapp, String title, String content, String image, int commission, int stock, int price, int percent, int phead, String trash,String isnew,String slider,String sliderupdate) {
+        this.idapp        =idapp;
         this.title        = title;
         this.content      = content;
         this.image        = image;
@@ -43,17 +48,18 @@ public class productORM {
         this.stock        = stock;
         this.price        = price;
         this.percent      = percent;
-        this.product_head = product_head;
-        this.shop         = shop;
-        this.number       = number;
+        this.phead = phead;
         this.trash        = trash;
+        this.isnew        = isnew;
+        this.slider       = slider;
+        this.sliderupdate = sliderupdate;
     }
     //////////////////////
-    public Integer getIdMaster() {
-        return idMaster;
+    public int getidapp() {
+        return idapp;
     }
-    public void setIdMaster(Integer idMaster) {
-        this.idMaster = idMaster;
+    public void setidapp(int idapp) {
+        this.idapp = idapp;
     }
     /////////////////////
     public String getTitle() {
@@ -77,60 +83,67 @@ public class productORM {
         this.image = image;
     }
     /////////////////////
-    public Integer getCommission() {
+    public int getCommission() {
         return commission;
     }
-    public void setCommission(Integer commission) {
+    public void setCommission(int commission) {
         this.commission = commission;
     }
     //////////////////////
-    public Integer getStock() {
+    public int getStock() {
         return stock;
     }
-    public void setStock(Integer stock) {
+    public void setStock(int stock) {
         this.stock = stock;
     }
     //////////////////////
-    public Integer getPrice() {
+    public int getPrice() {
         return price;
     }
-    public void setPrice(Integer price) {
+    public void setPrice(int price) {
         this.price = price;
     }
     //////////////////////
-    public Integer getPercent() {
+    public int getPercent() {
         return percent;
     }
-    public void setPercent(Integer percent) {
+    public void setPercent(int percent) {
         this.percent = percent;
     }
     //////////////////////
-    public Integer getProduct_head() {
-        return product_head;
+    public int getPhead() {
+        return phead;
     }
-    public void setProduct_head(Integer product_head) {
-        this.product_head = product_head;
-    }
-    //////////////////////
-    public Integer getShop() {
-        return shop;
-    }
-    public void setShop(Integer shop) {
-        this.shop = shop;
+    public void setPhead(int phead) {
+        this.phead = phead;
     }
     //////////////////////
-    public Integer getNumber() {
-        return number;
-    }
-    public void setNumber(Integer number) {
-        this.number = number;
-    }
-    //////////////////////
-    public Boolean getTrash() {
+    public String getTrash() {
         return trash;
     }
-    public void setTrash(Boolean trash) {
+    public void setTrash(String trash) {
         this.trash = trash;
+    }
+    //////////////////////
+    public String getIsnew() {
+        return isnew;
+    }
+    public void setIsnew(String isnew) {
+        this.isnew = isnew;
+    }
+    //////////////////////
+    public String getSlider() {
+        return slider;
+    }
+    public void setSlider(String slider) {
+        this.slider = slider;
+    }
+    //////////////////////
+    public String getSliderupdate() {
+        return sliderupdate;
+    }
+    public void setSliderupdate(String sliderupdate) {
+        this.sliderupdate = sliderupdate;
     }
     //////////////////////
 
