@@ -1,6 +1,7 @@
 package com.abideveloprs.smartmarket.debug.activity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.content.res.Resources;
@@ -14,11 +15,12 @@ import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.abideveloprs.smartmarket.debug.ProductsAdapter;
 import com.abideveloprs.smartmarket.debug.GlobalClass;
 import com.abideveloprs.smartmarket.debug.R;
-import com.abideveloprs.smartmarket.debug.orm.pheaderORM;
 import com.abideveloprs.smartmarket.debug.orm.productORM;
 import com.orm.query.Condition;
 import com.orm.query.Select;
@@ -32,11 +34,13 @@ public class ProductsActivity extends AppCompatActivity {
     private List<productORM> albumList;
     private String headerTitle,headerColor,headerImage;
     private int headerId;
+    TextView header_title;
+    RelativeLayout toolbarrelativeview;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         GlobalClass.overrideFont(getApplicationContext(), "SERIF", "Yekan.ttf");
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_details);
+        setContentView(R.layout.activity_products);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -52,9 +56,12 @@ public class ProductsActivity extends AppCompatActivity {
         headerColor=  intent.getStringExtra("color");
         headerImage=  intent.getStringExtra("image");
 
-        System.out.println("head id "+headerId);
+        recyclerView        = (RecyclerView)   findViewById(R.id.recycler_view);
+        header_title        = (TextView)       findViewById(R.id.header_title);
+        toolbarrelativeview = (RelativeLayout) findViewById(R.id.toolbarrelativeview);
 
-        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        header_title.setText(headerTitle);
+        toolbarrelativeview.setBackgroundColor(Color.parseColor("#"+headerColor));
 
 
         albumList= Select.from(productORM.class)
@@ -86,6 +93,9 @@ public class ProductsActivity extends AppCompatActivity {
         final CollapsingToolbarLayout collapsingToolbar =
                 (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
         collapsingToolbar.setTitle(" ");
+
+        //collapsingToolbar.setBackgroundColor(Color.parseColor("#"+headerColor));
+
         AppBarLayout appBarLayout = (AppBarLayout) findViewById(R.id.appbar);
         appBarLayout.setExpanded(true);
 

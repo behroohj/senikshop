@@ -11,6 +11,8 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,6 +29,7 @@ public class PHeadersAdapter extends RecyclerView.Adapter<PHeadersAdapter.MyView
 
     private Context mContext;
     private List<pheaderORM> pheaderList;
+    private int lastPosition = -1;
 
 
     public class MyViewHolder extends RecyclerView.ViewHolder  {
@@ -97,7 +100,18 @@ public class PHeadersAdapter extends RecyclerView.Adapter<PHeadersAdapter.MyView
             }
         });
 
+        Animation animation = AnimationUtils.loadAnimation(mContext,
+                (position > lastPosition) ? android.R.anim.slide_in_left
+                        : android.R.anim.slide_out_right);
+        holder.itemView.startAnimation(animation);
+        lastPosition = position;
 
+    }
+
+    @Override
+    public void onViewDetachedFromWindow(MyViewHolder holder) {
+        super.onViewDetachedFromWindow(holder);
+        holder.itemView.clearAnimation();
     }
 
     /**
@@ -131,5 +145,22 @@ public class PHeadersAdapter extends RecyclerView.Adapter<PHeadersAdapter.MyView
     @Override
     public int getItemCount() {
         return pheaderList.size();
+    }
+
+
+    private void setAnimation(View viewToAnimate, int position)
+    {
+
+
+        if (position > lastPosition)
+        {
+            Animation animation = AnimationUtils.loadAnimation(mContext, android.R.anim.slide_in_left);
+            viewToAnimate.startAnimation(animation);
+            lastPosition = position;
+
+        }
+
+
+
     }
 }
