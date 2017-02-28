@@ -10,6 +10,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
+import com.abideveloprs.smartmarket.debug.parser.profileJsonParser;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -95,9 +96,17 @@ public class LoginActivity extends AppCompatActivity{
                         editor.putString("password", password);
                         editor.apply();
 
+                        profileJsonParser pjp=new profileJsonParser();
+
+                        if(pjp.profileJsonParserInput(new String (response))){
+
                         Intent intent=new Intent(GlobalClass.context,MainActivity.class);
                         startActivity(intent);
                         finish();
+
+
+
+                        }
                     }
 
                     @Override

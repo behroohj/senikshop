@@ -39,7 +39,7 @@ public class PHeadersAdapter extends RecyclerView.Adapter<PHeadersAdapter.MyView
         public MyViewHolder(View view) {
             super(view);
             title = (TextView) view.findViewById(R.id.title);
-            thumbnail = (ImageView) view.findViewById(R.id.thumbnail);
+            thumbnail = (ImageView) view.findViewById(R.id.headerthumbnail);
 
         }
     }

@@ -23,8 +23,8 @@ import java.lang.reflect.Field;
 public class GlobalClass {
     public static Context context;
     public static String PREFS_NAME = "MyShp"; //shared pref name
-    public static String apiaddress="http://shirazapp.com/shop/rest/";
-    public static String imagesaddress="http://shirazapp.com/shop/upimg/";
+    public static String apiaddress="http://farspars.ir/newshop/rest/";
+    public static String imagesaddress="http://farspars.ir/newshop/upimg/";
 
 
 

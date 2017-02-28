@@ -44,7 +44,7 @@ public class productJsonParser {
                         product.setCommission(commission);
                         product.setStock(stock);
                         product.setImage(image);
-                        product.setPercent(price);
+                        product.setPrice(price);
                         product.setPercent(percent);
                         product.setPhead(phead);
                         product.setTrash(trash);
@@ -62,7 +62,7 @@ public class productJsonParser {
                             product.setCommission(commission);
                             product.setStock(stock);
                             product.setImage(image);
-                            product.setPercent(price);
+                            product.setPrice(price);
                             product.setPercent(percent);
                             product.setPhead(phead);
                             product.setTrash(trash);

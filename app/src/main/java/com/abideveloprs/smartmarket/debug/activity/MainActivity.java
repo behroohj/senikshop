@@ -21,12 +21,23 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 import com.abideveloprs.smartmarket.debug.PHeadersAdapter;
+import com.abideveloprs.smartmarket.debug.orm.pcolorsORM;
 import com.abideveloprs.smartmarket.debug.orm.pheaderORM;
 import com.abideveloprs.smartmarket.debug.orm.productORM;
+import com.abideveloprs.smartmarket.debug.orm.profileORM;
+import com.abideveloprs.smartmarket.debug.orm.psizesORM;
+import com.abideveloprs.smartmarket.debug.orm.punitsORM;
+import com.abideveloprs.smartmarket.debug.orm.subproductORM;
+import com.abideveloprs.smartmarket.debug.parser.pcolorsJsonParser;
 import com.abideveloprs.smartmarket.debug.parser.productJsonParser;
+import com.abideveloprs.smartmarket.debug.parser.psizesJsonParser;
+import com.abideveloprs.smartmarket.debug.parser.punitsJsonParser;
+import com.abideveloprs.smartmarket.debug.parser.subproductJsonParser;
 import com.daimajia.slider.library.Animations.DescriptionAnimation;
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
@@ -38,6 +49,7 @@ import com.loopj.android.http.RequestParams;
 import com.abideveloprs.smartmarket.debug.GlobalClass;
 import com.abideveloprs.smartmarket.debug.R;
 import com.abideveloprs.smartmarket.debug.parser.productHeaderJsonParser;
+import com.orm.query.Condition;
 import com.orm.query.Select;
 
 import java.util.HashMap;
@@ -135,12 +147,17 @@ public class MainActivity extends AppCompatActivity
 
         webServiceProductHead();
         webServiceProduct();
+        webServiceSubProduct();
+        webServicePcolors();
+        webServicePunits();
+        webServicePsizes();
 
 
 
 
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view_header);
         AddDataToHeadersRecycler();
+        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
     }
 
@@ -183,7 +200,6 @@ public class MainActivity extends AppCompatActivity
         });
     }
 
-
     public  void webServiceProduct()
     {
         AsyncHttpClient client = new AsyncHttpClient();
@@ -200,14 +216,10 @@ public class MainActivity extends AppCompatActivity
             public void onSuccess(int statusCode, Header[] headers, byte[] response) {
                 // called when response HTTP status is "200 OK"
                 String value = new String(response);
-                System.out.println("Product Json: "+value);
+                //System.out.println("Product Json: "+value);
                 productJsonParser productparser=new productJsonParser();
                 productparser.productJsonParserInput(value);
 
-
-                // final List<pheaderORM> pheaders =Select.from(pheaderORM.class).where(Condition.prop("idapp").eq(20)).list();
-                int c=(int) productORM.count(productORM.class, null, null);
-                System.out.println("c2: "+c);
 
 
             }
@@ -222,6 +234,146 @@ public class MainActivity extends AppCompatActivity
         });
     }
 
+    public  void webServiceSubProduct()
+    {
+        AsyncHttpClient client = new AsyncHttpClient();
+        RequestParams params = new RequestParams();
+        params.put("mobile", usermobile);
+        params.put("password", userpassword);
+
+        client.get(GlobalClass.apiaddress+"sub_product", params, new AsyncHttpResponseHandler() {
+            @Override
+            public void onStart() {
+                // called before request is started
+            }
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] response) {
+                // called when response HTTP status is "200 OK"
+                String value = new String(response);
+               // System.out.println("Product Json: "+value);
+                subproductJsonParser subproductparser=new subproductJsonParser();
+                subproductparser.subproductJsonParserInput(value);
+
+
+                // final List<pheaderORM> pheaders =Select.from(pheaderORM.class).where(Condition.prop("idapp").eq(20)).list();
+                //int c=(int) subproductORM.count(subproductORM.class, null, null);
+                //System.out.println("c3: "+c);
+
+
+            }
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] errorResponse, Throwable e) {
+                // called when response HTTP status is "4XX" (eg. 401, 403, 404)
+            }
+            @Override
+            public void onRetry(int retryNo) {
+                // called when request is retried
+            }
+        });
+    }
+
+    public  void webServicePcolors()
+    {
+        AsyncHttpClient client = new AsyncHttpClient();
+        RequestParams params = new RequestParams();
+        params.put("mobile", usermobile);
+        params.put("password", userpassword);
+
+        client.get(GlobalClass.apiaddress+"pro_colors", params, new AsyncHttpResponseHandler() {
+            @Override
+            public void onStart() {
+                // called before request is started
+            }
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] response) {
+                // called when response HTTP status is "200 OK"
+                String value = new String(response);
+                //System.out.println("Product Json: "+value);
+                 pcolorsJsonParser pcolorsparser=new pcolorsJsonParser();
+                pcolorsparser.pcolorsJsonParserInput(value);
+
+
+
+            }
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] errorResponse, Throwable e) {
+                // called when response HTTP status is "4XX" (eg. 401, 403, 404)
+            }
+            @Override
+            public void onRetry(int retryNo) {
+                // called when request is retried
+            }
+        });
+    }
+
+    public  void webServicePunits()
+    {
+        AsyncHttpClient client = new AsyncHttpClient();
+        RequestParams params = new RequestParams();
+        params.put("mobile", usermobile);
+        params.put("password", userpassword);
+
+        client.get(GlobalClass.apiaddress+"pro_units", params, new AsyncHttpResponseHandler() {
+            @Override
+            public void onStart() {
+                // called before request is started
+            }
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] response) {
+                // called when response HTTP status is "200 OK"
+                String value = new String(response);
+                //System.out.println("Product Json: "+value);
+                punitsJsonParser punitsparser=new punitsJsonParser();
+                punitsparser.punitsJsonParserInput(value);
+
+
+
+            }
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] errorResponse, Throwable e) {
+                // called when response HTTP status is "4XX" (eg. 401, 403, 404)
+            }
+            @Override
+            public void onRetry(int retryNo) {
+                // called when request is retried
+            }
+        });
+    }
+
+    public  void webServicePsizes()
+    {
+        AsyncHttpClient client = new AsyncHttpClient();
+        RequestParams params = new RequestParams();
+        params.put("mobile", usermobile);
+        params.put("password", userpassword);
+
+        client.get(GlobalClass.apiaddress+"pro_sizes", params, new AsyncHttpResponseHandler() {
+            @Override
+            public void onStart() {
+                // called before request is started
+            }
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] response) {
+                // called when response HTTP status is "200 OK"
+                String value = new String(response);
+                //System.out.println("sizez Json: "+value);
+                psizesJsonParser psizesparser=new psizesJsonParser();
+                psizesparser.psizesJsonParserInput(value);
+
+
+
+            }
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] errorResponse, Throwable e) {
+                // called when response HTTP status is "4XX" (eg. 401, 403, 404)
+
+            }
+            @Override
+            public void onRetry(int retryNo) {
+                // called when request is retried
+            }
+        });
+    }
 
 
 
@@ -287,8 +439,6 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onPageScrollStateChanged(int state) {}
 
-
-
     public class GridSpacingItemDecoration extends RecyclerView.ItemDecoration {
 
         private int spanCount;
@@ -323,7 +473,6 @@ public class MainActivity extends AppCompatActivity
             }
         }
     }
-
 
     private int dpToPx(int dp) {
         Resources r = getResources();

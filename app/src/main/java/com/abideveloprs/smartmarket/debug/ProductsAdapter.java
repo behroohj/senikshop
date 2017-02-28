@@ -3,6 +3,7 @@ package com.abideveloprs.smartmarket.debug;
  * Created by imanbahmani on 10/5/16 AD.
  */
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -14,9 +15,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.abideveloprs.smartmarket.debug.activity.ProductDetailActivity;
 import com.abideveloprs.smartmarket.debug.orm.productORM;
 
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by Ravi Tamada on 18/05/16.
@@ -34,7 +38,7 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.MyView
             super(view);
             title = (TextView) view.findViewById(R.id.title);
             count = (TextView) view.findViewById(R.id.count);
-            thumbnail = (ImageView) view.findViewById(R.id.thumbnail);
+            thumbnail = (ImageView) view.findViewById(R.id.productthumbnail);
             overflow = (ImageView) view.findViewById(R.id.overflow);
         }
     }
@@ -55,13 +59,25 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.MyView
 
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
-        productORM album = albumList.get(position);
-        holder.title.setText(album.getTitle());
-        holder.count.setText(" تومان");
+        final productORM product = albumList.get(position);
+        holder.title.setText(product.getTitle());
+
+
+        holder.count.setText(NumberFormat.getNumberInstance(Locale.US).format(product.getPrice())+" تومان");
 
         // loading album cover using Glide library
 
-        GlobalClass.ImageCatch(mContext,holder.thumbnail,GlobalClass.imagesaddress+album.getImage());
+        GlobalClass.ImageCatch(mContext,holder.thumbnail,GlobalClass.imagesaddress+product.getImage());
+
+        holder.thumbnail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent =new Intent(mContext, ProductDetailActivity.class);
+                intent.putExtra("productid",product.getidapp());
+                intent.putExtra("productimage",product.getImage());
+                mContext.startActivity(intent);
+            }
+        });
 
         holder.overflow.setOnClickListener(new View.OnClickListener() {
             @Override

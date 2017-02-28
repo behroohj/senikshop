@@ -2,6 +2,7 @@ package com.abideveloprs.smartmarket.debug.activity;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.media.Image;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.content.res.Resources;
@@ -15,6 +16,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -22,10 +24,13 @@ import com.abideveloprs.smartmarket.debug.ProductsAdapter;
 import com.abideveloprs.smartmarket.debug.GlobalClass;
 import com.abideveloprs.smartmarket.debug.R;
 import com.abideveloprs.smartmarket.debug.orm.productORM;
+import com.bumptech.glide.Glide;
 import com.orm.query.Condition;
 import com.orm.query.Select;
 
 import java.util.List;
+
+import jp.wasabeef.glide.transformations.BlurTransformation;
 
 public class ProductsActivity extends AppCompatActivity {
 
@@ -36,6 +41,7 @@ public class ProductsActivity extends AppCompatActivity {
     private int headerId;
     TextView header_title;
     RelativeLayout toolbarrelativeview;
+    ImageView backdrop;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         GlobalClass.overrideFont(getApplicationContext(), "SERIF", "Yekan.ttf");
@@ -59,6 +65,16 @@ public class ProductsActivity extends AppCompatActivity {
         recyclerView        = (RecyclerView)   findViewById(R.id.recycler_view);
         header_title        = (TextView)       findViewById(R.id.header_title);
         toolbarrelativeview = (RelativeLayout) findViewById(R.id.toolbarrelativeview);
+        backdrop            = (ImageView)      findViewById(R.id.backdrop) ;
+
+
+        Glide   .with(this)
+                .load(GlobalClass.imagesaddress+headerImage)
+                .bitmapTransform(new BlurTransformation(this,20))
+                .placeholder(R.drawable.loadingplace)
+                .into(backdrop);
+
+
 
         header_title.setText(headerTitle);
         toolbarrelativeview.setBackgroundColor(Color.parseColor("#"+headerColor));
@@ -110,7 +126,7 @@ public class ProductsActivity extends AppCompatActivity {
                     scrollRange = appBarLayout.getTotalScrollRange();
                 }
                 if (scrollRange + verticalOffset == 0) {
-                    collapsingToolbar.setTitle(getString(R.string.app_name));
+                    collapsingToolbar.setTitle("  "+headerTitle);
                     isShow = true;
                 } else if (isShow) {
                     collapsingToolbar.setTitle(" ");
@@ -192,4 +208,5 @@ public class ProductsActivity extends AppCompatActivity {
         Resources r = getResources();
         return Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, r.getDisplayMetrics()));
     }
+
 }
